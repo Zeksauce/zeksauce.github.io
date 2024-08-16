@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Table from Server</title>
+    <title>Dynamic Data Table</title>
     <style>
         table {
             width: 50%;
@@ -18,16 +18,12 @@
     </style>
 </head>
 <body>
-    <h1 align="center">Data Table from Server</h1>
+    <h1 align="center">Dynamic Data Table from Server</h1>
     <table id="data-table" align="center">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Score</th>
-            </tr>
+            <tr id="table-headers"></tr>
         </thead>
-        <tbody>
+        <tbody id="table-body">
         </tbody>
     </table>
 
@@ -36,15 +32,29 @@
             fetch('http://127.0.0.1:5000/get_data')
                 .then(response => response.json())
                 .then(data => {
-                    const tbody = document.querySelector('#data-table tbody');
-                    data.table.forEach(row => {
+                    const tableHeadersRow = document.getElementById('table-headers');
+                    const tableBody = document.getElementById('table-body');
+
+                    // Clear existing headers and body content
+                    tableHeadersRow.innerHTML = '';
+                    tableBody.innerHTML = '';
+
+                    // Create and append headers
+                    data.columns.forEach(header => {
+                        const th = document.createElement('th');
+                        th.textContent = header;
+                        tableHeadersRow.appendChild(th);
+                    });
+
+                    // Create and append data rows
+                    data.data.forEach(row => {
                         const tr = document.createElement('tr');
                         Object.values(row).forEach(cell => {
                             const td = document.createElement('td');
                             td.textContent = cell;
                             tr.appendChild(td);
                         });
-                        tbody.appendChild(tr);
+                        tableBody.appendChild(tr);
                     });
                 })
                 .catch(error => console.error('Error fetching data:', error));
