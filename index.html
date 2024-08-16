@@ -3,86 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Excel Data</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <title>Data Table from Server</title>
     <style>
         table {
-            width: 100%;
+            width: 50%;
             border-collapse: collapse;
+            margin: 50px auto;
         }
         th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <header class="jumbotron text-center">
-            <h1 class="display-4">Excel Data Display</h1>
-        </header>
-
-        <main class="row">
-            <section class="col-md-12">
-                <h2>Excel Data</h2>
-                <input type="file" id="csvFile" accept=".csv" class="form-control mb-4" />
-                <table class="table table-striped" id="dataTable">
-                    <thead>
-                        <tr id="tableHead"></tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
-            </section>
-        </main>
-
-        <footer class="text-center pt-4">
-            <p>© 2023 Excel Data Display</p>
-        </footer>
-    </div>
+    <h1 align="center">Data Table from Server</h1>
+    <table id="data-table" align="center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
     <script>
-        $(document).ready(function() {
-            $('#csvFile').on('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    Papa.parse(file, {
-                        header: true,
-                        complete: function(results) {
-                            displayTable(results.data);
-                        }
-                    });
-                }
-            });
-
-            function displayTable(data) {
-                const tableHead = $('#tableHead');
-                const tableBody = $('#tableBody');
-
-                tableHead.empty();
-                tableBody.empty();
-
-                if (data.length > 0) {
-                    // Create table headers
-                    const firstRow = data[0];
-                    const headers = Object.keys(firstRow);
-                    headers.forEach(header => {
-                        tableHead.append(`<th>${header}</th>`);
-                    });
-
-                    // Create table rows
-                    data.forEach(row => {
-                        const tableRow = $('<tr></tr>');
-                        headers.forEach(header => {
-                            const cellValue = row[header] !== undefined ? row[header] : '';
-                            tableRow.append(`<td>${cellValue}</td>`);
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('http://127.0.0.1:5000/get_data')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.querySelector('#data-table tbody');
+                    data.table.forEach(row => {
+                        const tr = document.createElement('tr');
+                        Object.values(row).forEach(cell => {
+                            const td = document.createElement('td');
+                            td.textContent = cell;
+                            tr.appendChild(td);
                         });
-                        tableBody.append(tableRow);
+                        tbody.appendChild(tr);
                     });
-                }
-            }
+                })
+                .catch(error => console.error('Error fetching data:', error));
         });
     </script>
 </body>
