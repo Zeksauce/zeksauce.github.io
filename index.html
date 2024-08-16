@@ -15,11 +15,28 @@
             border: 1px solid #ddd;
             text-align: center;
         }
+        #login-container {
+            text-align: center;
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
     <h1 align="center">Dynamic Data Table from Server</h1>
-    <table id="data-table" align="center">
+
+    <div id="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <button type="submit">Login</button>
+        </form>
+        <p id="login-error" style="color: red; display: none;">Login failed. Please try again.</p>
+    </div>
+
+    <table id="data-table" align="center" style="display: none;">
         <thead>
             <tr id="table-headers"></tr>
         </thead>
@@ -29,35 +46,66 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('http://127.0.0.1:5000/get_data')
-                .then(response => response.json())
-                .then(data => {
-                    const tableHeadersRow = document.getElementById('table-headers');
-                    const tableBody = document.getElementById('table-body');
+            const loginForm = document.getElementById('login-form');
+            const loginContainer = document.getElementById('login-container');
+            const loginError = document.getElementById('login-error');
+            const dataTable = document.getElementById('data-table');
 
-                    // Clear existing headers and body content
-                    tableHeadersRow.innerHTML = '';
-                    tableBody.innerHTML = '';
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
 
-                    // Create and append headers
-                    data.columns.forEach(header => {
-                        const th = document.createElement('th');
-                        th.textContent = header;
-                        tableHeadersRow.appendChild(th);
+                const headers = new Headers();
+                headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
+
+                fetch('http://172.18.39.61:5000/login', { headers: headers, method: 'POST' })
+                    .then(response => {
+                        if (response.ok) {
+                            loginContainer.style.display = 'none';
+                            dataTable.style.display = 'table';
+                            fetchData(headers);
+                        } else {
+                            loginError.style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        loginError.style.display = 'block';
+                        console.error('Error during login:', error);
                     });
+            });
 
-                    // Create and append data rows
-                    data.data.forEach(row => {
-                        const tr = document.createElement('tr');
-                        Object.values(row).forEach(cell => {
-                            const td = document.createElement('td');
-                            td.textContent = cell;
-                            tr.appendChild(td);
+            function fetchData(headers) {
+                fetch('http://172.18.39.61:5000/get_data', { headers: headers })
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableHeadersRow = document.getElementById('table-headers');
+                        const tableBody = document.getElementById('table-body');
+
+                        // Clear existing headers and body content
+                        tableHeadersRow.innerHTML = '';
+                        tableBody.innerHTML = '';
+
+                        // Create and append headers
+                        data.columns.forEach(header => {
+                            const th = document.createElement('th');
+                            th.textContent = header;
+                            tableHeadersRow.appendChild(th);
                         });
-                        tableBody.appendChild(tr);
-                    });
-                })
-                .catch(error => console.error('Error fetching data:', error));
+
+                        // Create and append data rows
+                        data.data.forEach(row => {
+                            const tr = document.createElement('tr');
+                            Object.values(row).forEach(cell => {
+                                const td = document.createElement('td');
+                                td.textContent = cell;
+                                tr.appendChild(td);
+                            });
+                            tableBody.appendChild(tr);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
         });
     </script>
 </body>
