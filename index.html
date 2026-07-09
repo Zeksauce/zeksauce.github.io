@@ -51,12 +51,13 @@
             <div class="w-48 h-48 sm:w-56 sm:h-56 shrink-0 relative">
                 <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-full blur-md opacity-20 animate-pulse"></div>
                 <div class="w-full h-full rounded-full border-4 border-white shadow-xl overflow-hidden bg-slate-200 relative z-10 flex items-center justify-between">
-                    <!-- Image tag pointing to your image asset -->
-                    <img src="headshot.jpg" alt="Zac Jayachandran" class="w-full h-full object-cover onError='this.style.display=\"none\"'">
-                    
-                    <!-- Fallback Icon placeholder if the image file is missing -->
-                    <div class="absolute inset-0 flex items-center justify-center text-slate-400 bg-slate-100 z-0">
+                    <!-- 1. Fallback Placeholder -->
+                    <div class="absolute inset-0 flex items-center justify-center text-slate-400 bg-slate-100">
                         <i class="fa-solid fa-user text-5xl"></i>
+                    </div>
+                    
+                    <!-- 2. Actual Image -->
+                    <img src="headshot.jpg" alt="Zac Jayachandran" class="w-full h-full object-cover relative z-10">
                     </div>
                 </div>
             </div>
