@@ -1,112 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Data Table</title>
-    <style>
-        table {
-            width: 50%;
-            border-collapse: collapse;
-            margin: 50px auto;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-        #login-container {
-            text-align: center;
-            margin-top: 50px;
-        }
-    </style>
+    <title>Zac Jayachandran | Portfolio</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <h1 align="center">Dynamic Data Table from Server</h1>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-blue-500 selection:text-white">
 
-    <div id="login-container">
-        <h2>Login</h2>
-        <form id="login-form">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required><br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br><br>
-            <button type="submit">Login</button>
-        </form>
-        <p id="login-error" style="color: red; display: none;">Login failed. Please try again.</p>
-    </div>
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-200 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-tight text-slate-900">Zac <span class="text-blue-600">Jayachandran</span></a>
+            <div class="hidden sm:flex space-x-8 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-blue-600 transition-colors">About</a>
+                <a href="#skills" class="hover:text-blue-600 transition-colors">Skills</a>
+                <a href="#experience" class="hover:text-blue-600 transition-colors">Experience</a>
+                <a href="#projects" class="hover:text-blue-600 transition-colors">Projects</a>
+                <a href="quantum.html" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors"><i class="fa-solid fa-atom mr-1"></i> Quantum Lab</a>
+                <a href="#activities" class="hover:text-blue-600 transition-colors">Interests</a>
+            </div>
+        </div>
+    </nav>
 
-    <table id="data-table" align="center" style="display: none;">
-        <thead>
-            <tr id="table-headers"></tr>
-        </thead>
-        <tbody id="table-body">
-        </tbody>
-    </table>
+    <!-- Hero Section -->
+    <header id="about" class="pt-32 pb-20 md:pt-40 md:pb-28 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+        <div class="max-w-3xl">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 mb-6">Data Scientist & Quantitative Researcher</span>
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-tight mb-6">
+                Engineering intelligent pipelines to solve high-stakes <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">operational & quantum challenges</span>.
+            </h1>
+            <p class="text-lg text-slate-600 leading-relaxed mb-8">
+                Data Science professional specializing in applied analytics, machine learning deployment, and system simulation techniques. Deeply engaged in semiconductor fabrication data tools, research-grade predictive modeling, and quantum algorithm simulations.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="mailto:zac.jayachandran@gmail.com" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm shadow-blue-500/10">
+                    <i class="fa-solid fa-envelope mr-2"></i> Contact Me
+                </a>
+                <a href="quantum.html" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm shadow-indigo-500/10">
+                    <i class="fa-solid fa-atom mr-2"></i> Explore Quantum Projects
+                </a>
+                <a href="https://doi.org/10.3847/2515-5172/ab35e7" target="_blank" class="inline-flex items-center justify-center px-5 py-3 border border-slate-200 text-base font-medium rounded-xl text-slate-700 bg-white hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-book-open mr-2"></i> View Publication
+                </a>
+            </div>
+        </div>
+    </header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('login-form');
-            const loginContainer = document.getElementById('login-container');
-            const loginError = document.getElementById('login-error');
-            const dataTable = document.getElementById('data-table');
+    <!-- Main Content Grid -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
 
-            loginForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
+        <!-- Skills Section -->
+        <section id="skills" class="scroll-mt-24">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900 mb-8 flex items-center">
+                <span class="w-8 h-1 bg-blue-600 rounded mr-3"></span> Technical Expertise
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <h3 class="font-bold text-slate-900 mb-4 flex items-center"><i class="fa-solid fa-code text-blue-600 mr-2"></i> Core Languages</h3>
+                    <ul class="space-y-2 text-slate-600 text-sm">
+                        <li class="flex justify-between"><span>Python / R</span> <span class="text-slate-400 font-mono text-xs">Expert</span></li>
+                        <li class="flex justify-between"><span>SQL</span> <span class="text-slate-400 font-mono text-xs">Advanced</span></li>
+                        <li class="flex justify-between"><span>C++ / Bash</span> <span class="text-slate-400 font-mono text-xs">Proficient</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <h3 class="font-bold text-slate-900 mb-4 flex items-center"><i class="fa-solid fa-brain text-blue-600 mr-2"></i> ML & Quantum</h3>
+                    <ul class="space-y-2 text-slate-600 text-sm">
+                        <li>PyTorch & Scikit-learn</li>
+                        <li>Quantum Circuit Simulation</li>
+                        <li>Predictive Simulation Modeling</li>
+                        <li>Bayesian Statistics & Regression</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                    <h3 class="font-bold text-slate-900 mb-4 flex items-center"><i class="fa-solid fa-globe text-blue-600 mr-2"></i> Professional Competencies</h3>
+                    <ul class="space-y-2 text-slate-600 text-sm">
+                        <li>System Risk Containment</li>
+                        <li>Multicultural Leadership</li>
+                        <li>Data Security & HIPAA Compliance</li>
+                        <li>Fluent English & German</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-                const headers = new Headers();
-                headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
+        <!-- Experience Section -->
+        <section id="experience" class="scroll-mt-24">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900 mb-8 flex items-center">
+                <span class="w-8 h-1 bg-blue-600 rounded mr-3"></span> Work Experience
+            </h2>
+            <div class="space-y-10 relative before:absolute before:inset-0 before:left-4 before:w-0.5 before:bg-slate-200">
+                <div class="relative pl-12 group">
+                    <div class="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-blue-600 ring-4 ring-white transition-transform group-hover:scale-120"></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between mb-2">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-lg">Production Control Intern</h3>
+                            <p class="text-slate-600 font-medium text-sm">SkyWater Technologies</p>
+                        </div>
+                        <span class="text-sm font-mono text-slate-500 mt-1 sm:mt-0">Jun 2024 — Sep 2024</span>
+                    </div>
+                    <ul class="list-disc list-outside ml-4 space-y-2 text-slate-600 text-sm">
+                        <li>Engineered automated reporting frameworks and SQL/Python data tools reducing manual query latency by 20% to optimize executive WIP tracking.</li>
+                        <li>Built and deployed predictive regression scripts to dynamically catch manufacturing bottlenecks and lower operational variance.</li>
+                        <li>Streamlined performance analysis pipelines, recovering high engineering team bandwidth daily.</li>
+                    </ul>
+                </div>
 
-                fetch('http://172.18.39.61:5000/login', { headers: headers, method: 'POST' })
-                    .then(response => {
-                        if (response.ok) {
-                            loginContainer.style.display = 'none';
-                            dataTable.style.display = 'table';
-                            fetchData(headers);
-                        } else {
-                            loginError.style.display = 'block';
-                        }
-                    })
-                    .catch(error => {
-                        loginError.style.display = 'block';
-                        console.error('Error during login:', error);
-                    });
-            });
+                <div class="relative pl-12 group">
+                    <div class="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 ring-4 ring-white transition-transform group-hover:scale-120"></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between mb-2">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-lg">Third Sergeant (Scouts)</h3>
+                            <p class="text-slate-600 font-medium text-sm">Singapore Armed Forces (16 C4I)</p>
+                        </div>
+                        <span class="text-sm font-mono text-slate-500 mt-1 sm:mt-0">May 2022 — Aug 2023</span>
+                    </div>
+                    <ul class="list-disc list-outside ml-4 space-y-2 text-slate-600 text-sm">
+                        <li>Commanded a cross-functional tactical team of five operators in high-pressure environments, achieving a 100% score in critical brigade evaluations.</li>
+                        <li>Maintained strict system operations protocols and risk management steps across a multi-language cohort.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-            function fetchData(headers) {
-                fetch('http://172.18.39.61:5000/get_data', { headers: headers })
-                    .then(response => response.json())
-                    .then(data => {
-                        const tableHeadersRow = document.getElementById('table-headers');
-                        const tableBody = document.getElementById('table-body');
+        <!-- Projects & Research -->
+        <section id="projects" class="scroll-mt-24">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900 mb-8 flex items-center">
+                <span class="w-8 h-1 bg-blue-600 rounded mr-3"></span> Research & Projects
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-blue-600 tracking-wider uppercase">Academic Capstone</span>
+                        <h3 class="font-bold text-slate-900 text-lg mt-1 mb-3">Healthcare Operations Predictive Engine</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Developed full-stack predictive ML tools to model appointment cancellations for the Children’s Hospital of Orange County. Engineered data deployment setups using stringent data security frameworks to safeguard sensitive system data.
+                        </p>
+                    </div>
+                    <div class="flex gap-2"><span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded font-mono">Python</span><span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded font-mono">Security</span></div>
+                </div>
 
-                        // Clear existing headers and body content
-                        tableHeadersRow.innerHTML = '';
-                        tableBody.innerHTML = '';
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-indigo-600 tracking-wider uppercase">Undergraduate Research</span>
+                        <h3 class="font-bold text-slate-900 text-lg mt-1 mb-3">Computational Nanostructure Simulation</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Created a unique regularizer package in PyTorch to increase structural neural network efficiency. Designed automated 3D nanostructure matrix simulations to systematically identify and categorize structural anomalies and material defects.
+                        </p>
+                    </div>
+                    <div class="flex gap-2"><span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded font-mono">PyTorch</span><span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded font-mono">Simulation</span></div>
+                </div>
+            </div>
+        </section>
 
-                        // Create and append headers
-                        data.columns.forEach(header => {
-                            const th = document.createElement('th');
-                            th.textContent = header;
-                            tableHeadersRow.appendChild(th);
-                        });
+        <!-- Education & Interests Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8">
+            <!-- Education Column -->
+            <section>
+                <h2 class="text-2xl font-bold tracking-tight text-slate-900 mb-6 flex items-center">
+                    <span class="w-8 h-1 bg-blue-600 rounded mr-3"></span> Education
+                </h2>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-6">
+                    <div>
+                        <h3 class="font-bold text-slate-900">University of California, Irvine</h3>
+                        <p class="text-sm text-slate-600">B.S. in Data Science | GPA: 3.94</p>
+                        <p class="text-xs text-slate-400 mt-1">Phi Beta Kappa Honor Society • Cum Laude</p>
+                    </div>
+                    <div class="border-t border-slate-100 pt-4">
+                        <h3 class="font-bold text-slate-900">Bavarian International School</h3>
+                        <p class="text-sm text-slate-600">International Baccalaureate Diploma • Munich, Germany</p>
+                    </div>
+                </div>
+            </section>
 
-                        // Create and append data rows
-                        data.data.forEach(row => {
-                            const tr = document.createElement('tr');
-                            Object.values(row).forEach(cell => {
-                                const td = document.createElement('td');
-                                td.textContent = cell;
-                                tr.appendChild(td);
-                            });
-                            tableBody.appendChild(tr);
-                        });
-                    })
-                    .catch(error => console.error('Error fetching data:', error));
-            }
-        });
-    </script>
+            <!-- Activities Column -->
+            <section id="activities">
+                <h2 class="text-2xl font-bold tracking-tight text-slate-900 mb-6 flex items-center">
+                    <span class="w-8 h-1 bg-blue-600 rounded mr-3"></span> Beyond the Terminal
+                </h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 text-center">
+                        <i class="fa-solid fa-atom text-2xl text-indigo-600 mb-2"></i>
+                        <h3 class="font-bold text-sm text-slate-900">Quantum Theory</h3>
+                        <p class="text-xs text-slate-500 mt-1">Algorithms & Simulations</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 text-center">
+                        <i class="fa-solid fa-person-biking text-2xl text-blue-600 mb-2"></i>
+                        <h3 class="font-bold text-sm text-slate-900">Swing Dancing</h3>
+                        <p class="text-xs text-slate-500 mt-1">Lindy Hop & Board Member</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 text-center">
+                        <i class="fa-solid fa-mountain text-2xl text-blue-600 mb-2"></i>
+                        <h3 class="font-bold text-sm text-slate-900">Rock Climbing</h3>
+                        <p class="text-xs text-slate-500 mt-1">Bouldering Competitions</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 text-center">
+                        <i class="fa-solid fa-earth-americas text-2xl text-blue-600 mb-2"></i>
+                        <h3 class="font-bold text-sm text-slate-900">Global Fluency</h3>
+                        <p class="text-xs text-slate-500 mt-1">Germany, Singapore, Tanzania</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400">
+            <p>&copy; 2026 Zac Jayachandran. Built using AI.</p>
+            <div class="flex space-x-6 mt-4 sm:mt-0">
+                <a href="https://github.com/Zeksauce" class="hover:text-slate-600"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com/in/zac-jayachandran-0bb8682a4/" class="hover:text-slate-600"><i class="fa-brands fa-linkedin text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
